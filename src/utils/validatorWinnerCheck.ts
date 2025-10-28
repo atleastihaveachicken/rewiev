@@ -1,75 +1,63 @@
-import type { BoardType, player } from "../types/game.types"
+import type { BoardType, player } from "../types/game.types";
+import type { winResult } from "../types/validator.types";
 
-export default function validatorWinnerCheck(newBoard: BoardType, player: player) {
-        const rows = newBoard.length
-        const cols = newBoard[0].length
-        let result = {}
-// это проверка по горизонтали 
-        for (let row = 0; row < rows; row++) {
-            for (let col=0; col < cols - 3; col++) {
-                if (newBoard[row][col] === player
-                    && newBoard[row][col]=== newBoard[row][col+1] 
-                    && newBoard[row][col] === newBoard[row][col+2]
-                    && newBoard[row][col] === newBoard[row][col+3]
-                )
-                { result = { who:{player},positions: [
-                    [row, col], 
-                    [row, col+1],
-                    [row, col+2],
-                    [row, col+3]
-            ] }
-                    return result
-                }}}
+const validatorWinnerCheck = (
+  board: BoardType,
+  player: player,
+): winResult | null => {
+  const rows = board.length;
+  const cols = board[0].length;
 
-//  это проверка по вертикали 
-        for (let col = 0; col < cols; col++) {
-            for (let row=0; row < rows - 3; row++) {
-                if (newBoard[row][col] === player
-                    && newBoard[row][col]=== newBoard[row+1][col] 
-                    && newBoard[row][col] === newBoard[row+2][col]
-                    && newBoard[row][col] === newBoard[row+3][col]
-                )
-                { result = { who:{player},positions: [
-                    [row, col], 
-                    [row + 1, col],
-                    [row + 2, col],
-                    [row + 3, col] 
-                ]}
-                    return result
-                }}}
-    // а вот это проверка по диагонали слева-направо вниз 
-        for (let col = 0; col < cols-3; col++) {
-            for (let row=0; row < rows - 3; row++) {
-                if (newBoard[row][col] === player
-                    && newBoard[row][col]=== newBoard[row+1][col+1] 
-                    && newBoard[row][col] === newBoard[row+2][col+2]
-                    && newBoard[row][col] === newBoard[row+3][col+3]
-                )
-                {result = { who:{player},positions: [
-                    [row, col], 
-                    [row + 1, col+ 1],
-                    [row + 2, col+ 2],
-                    [row + 3, col+ 3] 
-                ]}
-                    return result
-                }}}
-    // проверяю оставшуюся диагональ 
+  const lineCheck = (
+    newBoard: BoardType,
+    startRow: number,
+    startCol: number,
+    deltaRow: number,
+    deltaCol: number,
+    player: player,
+  ): [number, number][] | null => {
+    const positions: [number, number][] = [];
+    for (let i = 0; i < 4; i++) {
+      const r = startRow + i * deltaRow;
+      const c = startCol + i * deltaCol;
 
-        for (let col = 0; col < cols-3; col++) {
-            for (let row=3; row < rows; row++) {
-                if (newBoard[row][col] === player
-                    && newBoard[row][col]=== newBoard[row-1][col+1] 
-                    && newBoard[row][col] === newBoard[row-2][col+2]
-                    && newBoard[row][col] === newBoard[row-3][col+3]
-                )
-                {result = { who:{player},positions: [
-                    [row, col], 
-                    [row - 1 , col+ 1],
-                    [row - 2, col+ 2],
-                    [row - 3, col+ 3] 
-                ]}
-                    return result
-                }}}
+      // проверка границ доски
+      if (r < 0 || r >= newBoard.length || c < 0 || c >= newBoard[0].length)
+        return null;
+      if (newBoard[r][c] !== player) return null;
 
-        return null
+      positions.push([r, c]);
     }
+
+    return positions;
+  };
+
+  for (let row = 0; row < rows; row++) {
+    for (let col = 0; col < cols; col++) {
+      const directions: [number, number][] = [
+        [0, 1], // проверка по горизонтали
+        [1, 0], // по вертикали
+        [1, 1], // диагональ
+        [-1, 1], // другая диагональ
+      ];
+      for (const [dr, dc] of directions) {
+        const endRow = row + 3 * dr;
+        const endCol = col + 3 * dc;
+
+        if (endRow < 0 || endRow >= rows || endCol < 0 || endCol >= cols) {
+          continue;
+        }
+
+        const winningPositions = lineCheck(board, row, col, dr, dc, player);
+        if (winningPositions) {
+          return {
+            who: player,
+            positions: winningPositions,
+          };
+        }
+      }
+    }
+  }
+  return null;
+};
+export default validatorWinnerCheck;

@@ -1,90 +1,89 @@
-:root{
-background-color: blue; 
-display: flex;
-justify-content: center;
-align-items: center;
-
+:root {
+  background-color: blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.game{
+.game {
   display: flex;
   flex-direction: column;
   justify-items: center;
 }
 
-.game__title{
+.game__title {
   text-align: center;
-  color:aliceblue
+  color: aliceblue;
 }
 
 .game__container {
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    padding: 10px;
-    border-radius: 10px;
-    
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px;
+  border-radius: 10px;
 }
-.game__container-row{
-    display: flex;
-    gap: 2px;
+/* это чтобы человек не смог ходить вместо компьютера  */
+.disabled {
+  pointer-events: none;
 }
 
+.game__container-row {
+  display: flex;
+  gap: 2px;
+}
 
-
-.game__container-item{
-    width:85px;
-    height: 85px;
-    box-sizing: border-box;
-    border: 1px solid black;
-    transition: all 0.3s ease;
+.game__container-item {
+  width: 85px;
+  height: 85px;
+  box-sizing: border-box;
+  border: 1px solid black;
+  transition: all 0.3s ease;
 }
 
 .game__container-item.falling {
-    animation: drop 0.5s ease-in-out;
+  animation: drop 0.5s ease-in-out;
 }
 
-@keyframes drop  {
-   0% {
-        transform: translateY(-40px) scale(0.8);
-        opacity: 0;
-    }
-    50% {
-        transform: translateY(20px) scale(1.1);
-    }
-    100% {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-    }
+@keyframes drop {
+  0% {
+    transform: translateY(-40px) scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(20px) scale(1.1);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
 }
 
-.game__container-item:hover{ 
+.game__container-item:hover {
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
   transform: scale(1.02);
 }
-.game__container-item.empty { 
-background-color: white;
+.game__container-item.empty {
+  background-color: white;
 }
 
-.game__container-item.red { 
-background-color: red;
+.game__container-item.red {
+  background-color: red;
 }
-.game__container-item.yellow { 
-background-color: yellow;
+.game__container-item.yellow {
+  background-color: yellow;
 }
 
-.button{
- background-color: blueviolet; 
+.button {
+  background-color: blueviolet;
   border: none;
-     cursor: pointer;
-color: white;
+  cursor: pointer;
+  color: white;
   padding: 15px 32px;
   text-align: center;
   margin: 1rem;
-  
-text-decoration: none;
+
+  text-decoration: none;
   display: inline-block;
   font-size: 16px;
-
-
 }
