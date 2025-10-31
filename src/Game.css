@@ -1,8 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 :root {
-  background-color: blue;
+  --primary-blue: #4361ee;
+  --dark-blue: #3a0ca3;
+  --light-blue: #4cc9f0;
+  --red:#dd1e1e; 
+  --yellow:#f2e30e; 
+  --gold-yellow:#f8d700;
+  --blueviolet:#763aed;
+  --text-white:#f0f2fa; 
+}
+body{
+ background: linear-gradient(180deg, 
+ var(--dark-blue) 0%, 
+ var(--primary-blue) 50%, 
+ var(--light-blue) 100%);
+  min-height: 100vh;
+  margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: "Montserrat", Verdana, sans-serif;
 }
 .game {
   display: flex;
@@ -12,7 +30,7 @@
 
 .game__title {
   text-align: center;
-  color: aliceblue;
+  color: var(--text-white);
 }
 
 .game__container {
@@ -60,7 +78,7 @@
 }
 
 .game__container-item:hover {
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 20px var(--text-white);
   transform: scale(1.02);
 }
 .game__container-item.empty {
@@ -68,22 +86,63 @@
 }
 
 .game__container-item.red {
-  background-color: red;
+  background-color: var(--red);
 }
 .game__container-item.yellow {
-  background-color: yellow;
+  background-color: var(--yellow);
 }
 
+.game__container-item.winning {
+
+  animation: pulse 1.5s infinite;
+  box-shadow: 0 0 20px var(--gold-yellow);
+  
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+
 .button {
-  background-color: blueviolet;
+  background-color: var(--blueviolet);
   border: none;
   cursor: pointer;
-  color: white;
+  color: var(--text-white);
   padding: 15px 32px;
   text-align: center;
   margin: 1rem;
-
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
+}
+.button:hover{
+  box-shadow: 0 0 2px var(--dark-blue);
+  transform: scale(1.01);
+}
+
+.bets__container {
+  display: flex;
+  justify-content: center;
+}
+
+.gameControls__container {
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+ justify-content: space-around;
+
+}
+
+.results__info{
+   display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px;
+  align-items: start;
+}
+.results__info-positions {
+  text-align: right;
+  color: var(--text-white)
 }

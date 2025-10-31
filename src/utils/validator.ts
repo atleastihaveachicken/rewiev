@@ -1,4 +1,4 @@
-import validatorWinnerCheck from "./validatorWinnerCheck";
+import winnerCheck from "./winnerCheck.ts";
 
 import type {
   StepResult,
@@ -24,7 +24,7 @@ const validator = (moves: number[]) => {
     board[row][column] = currentPlayer;
     stepNumber++;
 
-    const winnerStep = validatorWinnerCheck(board, currentPlayer);
+    const winnerStep = winnerCheck(board, currentPlayer);
     const isDraw =
       !winnerStep && board.every((row) => row.every((cell) => cell !== null));
     const boardState: Step["board_state"] = winnerStep

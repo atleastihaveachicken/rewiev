@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
-import type { SlotProps } from "../types/game.types.ts";
+import type { GameCellProps } from "../types/game.types.ts";
 
-const Slot = ({ value, onClick }: SlotProps) => {
+const GameCell = ({ value, 
+  onClick,
+  isWinning
+ }: GameCellProps) => {
   const [isNew, setIsNew] = useState(false);
 
   useEffect(() => {
@@ -14,8 +17,9 @@ const Slot = ({ value, onClick }: SlotProps) => {
 
   const colorClass =
     value === "player_1" ? "red" : value === "player_2" ? "yellow" : "empty";
-  const classes = `game__container-item ${colorClass} ${isNew ? "falling" : ""}`;
+  const classes = `game__container-item ${colorClass} ${isNew ? "falling" : ""} ${isWinning ? 'winning': ''}`;
+   
 
-  return <div className={classes} onClick={onClick}></div>;
+  return <button className={classes} onClick={onClick}></button>;
 };
-export default Slot;
+export default GameCell;

@@ -1,17 +1,35 @@
 import type { BoardType, player } from "../types/game.types";
+import type { winResult } from "../types/validator.types";
 
-const winnerCheck = (board: BoardType, player: player) => {
+const WinnerCheck = (
+  board: BoardType,
+  player: player,
+): winResult | null => {
   const rows = board.length;
   const cols = board[0].length;
 
-  const lineCheck = (r: number, c: number, dr: number, dc: number): boolean => {
+  const lineCheck = (
+    newBoard: BoardType,
+    startRow: number,
+    startCol: number,
+    deltaRow: number,
+    deltaCol: number,
+    player: player,
+  ): [number, number][] | null => {
+    const positions: [number, number][] = [];
     for (let i = 0; i < 4; i++) {
-      const nr = r + i * dr;
-      const nc = c + i * dc;
-      if (nr < 0 || nr >= rows || nc < 0 || nc >= cols) return false;
-      if (board[nr][nc] !== player) return false;
+      const r = startRow + i * deltaRow;
+      const c = startCol + i * deltaCol;
+
+      // проверка границ доски
+      if (r < 0 || r >= newBoard.length || c < 0 || c >= newBoard[0].length)
+        return null;
+      if (newBoard[r][c] !== player) return null;
+
+      positions.push([r, c]);
     }
-    return true;
+
+    return positions;
   };
 
   for (let row = 0; row < rows; row++) {
@@ -22,10 +40,24 @@ const winnerCheck = (board: BoardType, player: player) => {
         [1, 1], // диагональ
         [-1, 1], // другая диагональ
       ];
-      if (directions.some(([dr, dc]) => lineCheck(row, col, dr, dc))) {
-        return player;
+      for (const [dr, dc] of directions) {
+        const endRow = row + 3 * dr;
+        const endCol = col + 3 * dc;
+
+        if (endRow < 0 || endRow >= rows || endCol < 0 || endCol >= cols) {
+          continue;
+        }
+
+        const winningPositions = lineCheck(board, row, col, dr, dc, player);
+        if (winningPositions) {
+          return {
+            who: player,
+            positions: winningPositions,
+          };
+        }
       }
     }
   }
+  return null;
 };
-export default winnerCheck;
+export default WinnerCheck;
