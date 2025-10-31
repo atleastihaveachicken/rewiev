@@ -1,10 +1,7 @@
 import type { BoardType, player } from "../types/game.types";
 import type { winResult } from "../types/validator.types";
 
-const WinnerCheck = (
-  board: BoardType,
-  player: player,
-): winResult | null => {
+const WinnerCheck = (board: BoardType, player: player): winResult | null => {
   const rows = board.length;
   const cols = board[0].length;
 

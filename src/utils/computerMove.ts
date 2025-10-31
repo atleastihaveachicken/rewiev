@@ -2,12 +2,11 @@ import type { BoardType, colIndex, player } from "../types/game.types";
 import type { boardType } from "../types/validator.types";
 import winnerCheck from "./winnerCheck";
 
-
 const computerMove = (board: BoardType, player: player): number => {
   const avaliableColumns = [];
   const cloneBoard = (board: BoardType) => board.map((row) => [...row]);
   const newBoard = cloneBoard(board);
-  for (let col = 0; col < 7; col++) { 
+  for (let col = 0; col < 7; col++) {
     if (board[0][col] === null) {
       avaliableColumns.push(col);
     }
@@ -21,19 +20,19 @@ const computerMove = (board: BoardType, player: player): number => {
 
   // проверка на то, может ли компьютер победить -
   // для этого создаём копию доски и делаем там ход, если он выигрышный - возвращаем колонку
-  const winMove = findWinMove(avaliableColumns, newBoard, player) 
+  const winMove = findWinMove(avaliableColumns, newBoard, player);
   if (winMove !== null) {
-    return winMove
+    return winMove;
   }
- 
+
   //проверка на то, может ли победить второй игрок
-  const blockMove = findWinMove(avaliableColumns, newBoard, opponent)
+  const blockMove = findWinMove(avaliableColumns, newBoard, opponent);
   if (blockMove !== null) {
-    return blockMove
+    return blockMove;
   }
-  //в первую очередь занимаем центр, но ставить просто в центр как-то топорно выглядит, 
+  //в первую очередь занимаем центр, но ставить просто в центр как-то топорно выглядит,
   // поэтому добавил к нему рандом
-  const centralCol = 3; 
+  const centralCol = 3;
   if (avaliableColumns.includes(centralCol) && Math.random() < 0.4) {
     return centralCol;
   }
@@ -41,7 +40,7 @@ const computerMove = (board: BoardType, player: player): number => {
   // если ниче не нашлось - делаем рандомный ход
   const randomIndex = Math.floor(Math.random() * avaliableColumns.length);
   return avaliableColumns[randomIndex];
-}
+};
 
 // для симуляции кода дублирую кусок кода игрока - ищем самую нижнюю ячейку, возвращаем игровое поле со сделанным ходом
 const simulateMove = (board: BoardType, colIndex: colIndex, player: player) => {
@@ -56,17 +55,19 @@ const simulateMove = (board: BoardType, colIndex: colIndex, player: player) => {
   return newBoard;
 };
 
- const findWinMove = (avaliableColumns:number[], board:boardType, player:player) => {
-    for (let i = 0; i < avaliableColumns.length; i++) {
+const findWinMove = (
+  avaliableColumns: number[],
+  board: boardType,
+  player: player,
+) => {
+  for (let i = 0; i < avaliableColumns.length; i++) {
     const col = avaliableColumns[i];
     const tempBoard = simulateMove(board, col, player);
     if (winnerCheck(tempBoard, player)) {
       return col;
     }
-      
-    
   }
-  return null
-  }
+  return null;
+};
 
 export default computerMove;

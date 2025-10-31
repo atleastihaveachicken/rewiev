@@ -13,7 +13,6 @@ const GameControls = ({
       <Button onClick={handleMenuButton} value="Menu" />
       <Button onClick={handleUndoButton} value="Undo" />
       <Button onClick={handleRedoButton} value="Redo" />
-      
     </div>
   );
 };

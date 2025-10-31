@@ -1,20 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
 :root {
   --primary-blue: #4361ee;
   --dark-blue: #3a0ca3;
   --light-blue: #4cc9f0;
-  --red:#dd1e1e; 
-  --yellow:#f2e30e; 
-  --gold-yellow:#f8d700;
-  --blueviolet:#763aed;
-  --text-white:#f0f2fa; 
+  --red: #dd1e1e;
+  --yellow: #f2e30e;
+  --gold-yellow: #f8d700;
+  --blueviolet: #763aed;
+  --text-white: #f0f2fa;
 }
-body{
- background: linear-gradient(180deg, 
- var(--dark-blue) 0%, 
- var(--primary-blue) 50%, 
- var(--light-blue) 100%);
+body {
+  background: linear-gradient(
+    180deg,
+    var(--dark-blue) 0%,
+    var(--primary-blue) 50%,
+    var(--light-blue) 100%
+  );
   min-height: 100vh;
   margin: 0;
   display: flex;
@@ -93,18 +95,21 @@ body{
 }
 
 .game__container-item.winning {
-
   animation: pulse 1.5s infinite;
   box-shadow: 0 0 20px var(--gold-yellow);
-  
 }
 
 @keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
-
 
 .button {
   background-color: var(--blueviolet);
@@ -118,7 +123,7 @@ body{
   display: inline-block;
   font-size: 16px;
 }
-.button:hover{
+.button:hover {
   box-shadow: 0 0 2px var(--dark-blue);
   transform: scale(1.01);
 }
@@ -132,17 +137,16 @@ body{
   display: flex;
   flex-direction: row;
   justify-items: center;
- justify-content: space-around;
-
+  justify-content: space-around;
 }
 
-.results__info{
-   display: grid;
+.results__info {
+  display: grid;
   grid-template-columns: 1fr auto;
   gap: 20px;
   align-items: start;
 }
 .results__info-positions {
   text-align: right;
-  color: var(--text-white)
+  color: var(--text-white);
 }

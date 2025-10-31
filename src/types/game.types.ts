@@ -22,7 +22,6 @@ export interface GameControlsProps {
 export interface GameHeaderProps {
   isRedNext: boolean;
   winner: player;
-  
 }
 
 export interface ButtonProps {
@@ -37,10 +36,10 @@ export interface GameMenuProps {
 }
 
 export interface PvcBetsProps {
-  onBet: (player: player, bet: number) => void; 
+  onBet: (player: player, bet: number) => void;
   balance: number;
-  onChangeBet:(string:string) => void;
-  handleMenuButton:() => void;
+  onChangeBet: (string: string) => void;
+  handleMenuButton: () => void;
   bet: number;
 }
 
@@ -51,13 +50,13 @@ export interface GameResultsProps {
   handleRetryButton: () => void;
   handleMenuButton: () => void;
   handleValidator: () => void;
-  gameMode:string;
+  gameMode: string;
   currentBet: player;
 }
 
 export interface ValidatorScreenProps {
   handleMenuButton: () => void;
-  turnHistory:number[];
+  turnHistory: number[];
 }
 
 export type rowIndex = number;
