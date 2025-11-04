@@ -1,0 +1,26 @@
+.moves__container {
+  display: flex;
+}
+.moves__container-player {
+  margin: 10px;
+}
+
+.results {
+  color: var(--text-white);
+  border: 1px solid black;
+  padding: 10px;
+  border-radius: 4px;
+  background: var(--primary-blue);
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.game__title-red {
+  color: var(--red);
+}
+.game__title-yellow {
+  color: var(--yellow);
+}
+.results__info-positions {
+  text-align: center;
+}

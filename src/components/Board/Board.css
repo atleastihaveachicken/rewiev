@@ -1,0 +1,80 @@
+.game__title {
+  text-align: center;
+  color: var(--text-white);
+}
+
+.game__container {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px;
+  border-radius: 10px;
+}
+/* это чтобы человек не смог ходить вместо компьютера  */
+.disabled {
+  pointer-events: none;
+}
+
+.game__container-row {
+  display: flex;
+  gap: 2px;
+}
+
+.game__container-item {
+  width: 85px;
+  height: 85px;
+  box-sizing: border-box;
+  border: 1px solid black;
+  transition: all 0.3s ease;
+}
+
+.game__container-item.falling {
+  animation: drop 0.5s ease-in-out;
+}
+
+@keyframes drop {
+  0% {
+    transform: translateY(-40px) scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(20px) scale(1.1);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.game__container-item:hover {
+  box-shadow: 0 0 20px var(--text-white);
+  transform: scale(1.02);
+}
+.game__container-item.empty {
+  background-color: white;
+}
+
+.game__container-item.red {
+  background-color: var(--red);
+}
+.game__container-item.yellow {
+  background-color: var(--yellow);
+}
+
+.game__container-item.winning {
+  animation: pulse 1.5s infinite;
+  box-shadow: 0 0 20px var(--gold-yellow);
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

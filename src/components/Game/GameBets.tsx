@@ -1,13 +1,21 @@
-import Button from "./Button";
-import type { PvcBetsProps } from "../types/game.types";
-
-const PvcBets = ({
+import Button from "../../ui/Button/Button";
+import type { GameBetsProps } from "../../types/game.types";
+/**  Компонент для размещения ставок в игре
+ * Отображает отдельное окно ставок, позволяет изменять размер ставки и выбирать игрока, на которого ставишь
+ *
+ * @param onBet - функция обработки ставки на игрока
+ * @param onChangeBet - функция изменения суммы ставки
+ * @param handleMenuButton - функция выхода в меню
+ * @param balance - баланс
+ * @param bet - сумма ставки
+ */
+const GameBets = ({
   onBet,
   onChangeBet,
   handleMenuButton,
   balance,
   bet,
-}: PvcBetsProps) => {
+}: GameBetsProps) => {
   return (
     <div className="menu__container">
       {balance >= 100 ? (
@@ -30,7 +38,6 @@ const PvcBets = ({
         </>
       ) : (
         <p className="game__title">
-          {" "}
           You don't have enough points to make a bet! Better earn some at PvC
           mode
         </p>
@@ -40,4 +47,4 @@ const PvcBets = ({
   );
 };
 
-export default PvcBets;
+export default GameBets;

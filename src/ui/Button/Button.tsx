@@ -1,4 +1,5 @@
-import type { ButtonProps } from "../types/game.types";
+import type { ButtonProps } from "../../types/game.types";
+import "./Button.css";
 
 const Button = ({ onClick, value }: ButtonProps) => {
   return (

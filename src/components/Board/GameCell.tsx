@@ -1,6 +1,14 @@
 import { useEffect, useState } from "react";
-import type { GameCellProps } from "../types/game.types.ts";
+import type { GameCellProps } from "../../types/game.types.ts";
+import "./Board.css";
 
+/**
+ * Компонент ячейки игрового поля
+ * Отображает состояние ячейки (пустая, красная, желтая) с анимацией падения и подсветкой выигрышной комбинации
+ * @param value - значение ячейки
+ * @param onClick - функция обработки клика по ячейке
+ * @param isWinning - проверяем, является ли ячейка выигрышной
+ */
 const GameCell = ({ value, onClick, isWinning }: GameCellProps) => {
   const [isNew, setIsNew] = useState(false);
 

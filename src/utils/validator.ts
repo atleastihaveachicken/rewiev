@@ -15,7 +15,6 @@ const validator = (moves: number[]) => {
   result["step_0"] = { player_1: [], player_2: [], board_state: "waiting" };
 
   let stepNumber = 0;
-
   moves.forEach((column, i) => {
     const row = findRow(board, column);
     if (row === -1) return;
@@ -23,8 +22,10 @@ const validator = (moves: number[]) => {
     const currentPlayer: player = i % 2 === 0 ? "player_1" : "player_2";
     board[row][column] = currentPlayer;
     stepNumber++;
+    const redWin = winnerCheck(board, "player_1");
+    const yellowWin = winnerCheck(board, "player_2");
+    const winnerStep = redWin || yellowWin;
 
-    const winnerStep = winnerCheck(board, currentPlayer);
     const isDraw =
       !winnerStep && board.every((row) => row.every((cell) => cell !== null));
     const boardState: Step["board_state"] = winnerStep
