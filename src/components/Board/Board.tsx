@@ -1,6 +1,14 @@
-import type { rowIndex, colIndex, BoardProps } from "../types/game.types";
+import type { rowIndex, colIndex, BoardProps } from "../../types/game.types";
 import GameCell from "./GameCell";
-
+import "./Board.css";
+/**
+ * Компонент игрового поля
+ * Отображает сетку ячеек, обрабатывает клики и подсвечивает выигрышные комбинации
+ * @param gameBoard - двумерный массив, игровое поле
+ * @param handleClick - обрабатываем клик по колонке
+ * @param disabled - флаг, блокирующий взаимодействие с полем во время хода компьютера
+ * @param winningCells - массив выигрышных ячеек для подсветки
+ */
 const Board = ({
   gameBoard,
   handleClick,

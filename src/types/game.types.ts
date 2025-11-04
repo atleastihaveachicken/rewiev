@@ -7,7 +7,9 @@ export interface GameCellProps {
 export interface BoardProps {
   gameBoard: BoardType;
   handleClick: (column: colIndex) => void;
+  /** Отключаем клетки во время хода компьютеров в режимах PvC и CvC*/
   disabled?: boolean;
+  /** Выигрышные клетки - нужны для увеличения с помощью стилей */
   winningCells?: [number, number][];
 }
 
@@ -16,12 +18,12 @@ export interface GameControlsProps {
   handleMenuButton: () => void;
   handleUndoButton: () => void;
   handleRedoButton: () => void;
-  handleValidator: () => void;
 }
 
 export interface GameHeaderProps {
   isRedNext: boolean;
   winner: player;
+  isGameOver: boolean;
 }
 
 export interface ButtonProps {
@@ -35,8 +37,9 @@ export interface GameMenuProps {
   onCvc: () => void;
 }
 
-export interface PvcBetsProps {
+export interface GameBetsProps {
   onBet: (player: player, bet: number) => void;
+  /** Сколько денег у игрока */
   balance: number;
   onChangeBet: (string: string) => void;
   handleMenuButton: () => void;
@@ -58,6 +61,72 @@ export interface ValidatorScreenProps {
   handleMenuButton: () => void;
   turnHistory: number[];
 }
+
+export interface GameState {
+  /**
+   * Размер ставки
+   */
+  bet: number;
+  /**
+   * Баланс игрока
+   */
+  balance: number;
+  /**
+   * На кого (игрок 1 или игрок 2) ставим
+   */
+  currentBet: player | null;
+  /**
+   * История ходов - нужна для работы кнопок анду/реду
+   */
+  gameHistory: BoardType[];
+  /**
+   * Текущий номер хода
+   */
+  currentMove: number;
+  /**
+   * Массив с ходами обоих игроков - нужен для вызова валидатора после матча
+   */
+  turnHistory: number[];
+  /**
+   * Выигрышные ячейки - нужны для подсветки в случае победы
+   */
+  winningCells: [number, number][];
+  /**
+   * Игровое поле
+   */
+  gameBoard: BoardType;
+  /**
+   * Флаг для смены очередности игроков
+   */
+  isRedNext: boolean;
+  /**
+   * Флаг для завершения игры
+   */
+  isGameOver: boolean;
+  /**
+   * Игровой режим
+   */
+  gameMode: "pvp" | "pvc" | "cvc";
+  /**
+   * Текущий экран игры 
+   */
+  currentScreen: string;
+  /**
+   * Победитель
+   */
+  winner: player | null;
+}
+
+export type Action =
+  | { type: "START_GAME"; mode: GameState["gameMode"] }
+  | { type: "MAKE_MOVE"; colIndex: colIndex; player: player }
+  | { type: "UNDO" }
+  | { type: "REDO" }
+  | { type: "RETRY" }
+  | { type: "SET_SCREEN"; screen: GameState["currentScreen"] }
+  | { type: "SET_BET"; bet: number; currentBet: player }
+  | { type: "CHANGE_BET"; bet: number }
+  | { type: "LOAD_STATE"; data: Partial<GameState> };
 
 export type rowIndex = number;
 export type colIndex = number;

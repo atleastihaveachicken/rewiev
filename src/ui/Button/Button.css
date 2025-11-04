@@ -1,0 +1,16 @@
+.button {
+  background-color: var(--blueviolet);
+  border: none;
+  cursor: pointer;
+  color: var(--text-white);
+  padding: 15px 32px;
+  text-align: center;
+  margin: 1rem;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+.button:hover {
+  box-shadow: 0 0 2px var(--dark-blue);
+  transform: scale(1.01);
+}
